@@ -11,7 +11,8 @@ function mouseOverFunc(){
     const contents = container.querySelectorAll('div');
     contents.forEach((content) => {
         content.addEventListener('mouseenter', ()=>{
-            content.style.background = 'blue';
+            let randomColor = Math.floor(Math.random()*16777215).toString(16);
+            content.style.backgroundColor += `#${randomColor}`;
         });
     });
 };
@@ -32,7 +33,6 @@ function createGrid(){
         content.style.width = `${boxesDim}px`;
         container.appendChild(content);
     };
-
     mouseOverFunc();
 };
 
