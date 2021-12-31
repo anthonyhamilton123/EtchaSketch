@@ -1,22 +1,58 @@
-const container = document.querySelector('#container');
+const main = document.querySelector('#mainDiv')
 
-let content = document.createElement('div');
-content.classList.add('content');
-content.style.border = '1px solid black';
-content.style.height = '20px';
-content.style.width = '20px';
+const container = document.createElement('div');
 
-container.appendChild(content);
+function createContainer(){
+    container.classList.add('container');
+    document.getElementById("mainDiv").appendChild(container);
+}
 
-const node = document.querySelector('.content');
-[...Array(255)].forEach(_ => node.parentNode.insertBefore(node.cloneNode(true), node));
-
-const contents = container.querySelectorAll('div');
-contents.forEach((content) => {
-    content.addEventListener('mouseenter', ()=>{
-        content.style.background = 'blue';
+function mouseOverFunc(){
+    const contents = container.querySelectorAll('div');
+    contents.forEach((content) => {
+        content.addEventListener('mouseenter', ()=>{
+            content.style.background = 'blue';
+        });
     });
-    content.addEventListener('mouseleave', ()=>{
-        content.style.background = 'white';
-    });
-});
+};
+
+let numberBoxes = 16;
+
+function createGrid(){
+
+    createContainer();
+
+    let boxesDim = ((800 - (numberBoxes + 2)) / numberBoxes)-1;
+
+    for (i=1;i<=(numberBoxes*numberBoxes);i++){
+        let content = document.createElement('div');
+        content.classList.add('content');
+        content.style.border = '1px solid black';
+        content.style.height = `${boxesDim}px`;
+        content.style.width = `${boxesDim}px`;
+        container.appendChild(content);
+    };
+
+    mouseOverFunc();
+};
+
+createGrid();
+
+
+
+let btn = document.querySelector('#button');
+
+function clearAll() {
+    container.innerHTML = "";
+
+}
+
+btn.addEventListener('click', ()=>{
+    clearAll();
+    numberBoxes = parseInt(prompt('How many squares would you like?'));
+    if(numberBoxes>100){
+        numberBoxes = parseInt(prompt("Sorry, enter a number lower than 100"))
+    }
+    createGrid();
+})
+
